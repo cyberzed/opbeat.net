@@ -47,18 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Error.cs" />
-    <Compile Include="ErrorLevel.cs" />
-    <Compile Include="Exception.cs" />
-    <Compile Include="Frame.cs" />
-    <Compile Include="Http.cs" />
+    <Compile Include="ErrorsModels\Error.cs" />
+    <Compile Include="ErrorsModels\ErrorLevel.cs" />
+    <Compile Include="ErrorsModels\Exception.cs" />
+    <Compile Include="ErrorsModels\Frame.cs" />
+    <Compile Include="ErrorsModels\Http.cs" />
+    <Compile Include="ErrorsModels\StackTrace.cs" />
     <Compile Include="OpbeatClient.cs" />
     <Compile Include="OpbeatConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Release.cs" />
+    <Compile Include="ReleaseModels\Release.cs" />
+    <Compile Include="ReleaseModels\ReleaseStatus.cs" />
     <Compile Include="ReleaseResponse.cs" />
-    <Compile Include="ReleaseStatus.cs" />
-    <Compile Include="StackTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

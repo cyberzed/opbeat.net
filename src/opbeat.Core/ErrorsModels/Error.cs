@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace opbeat.Core
+namespace opbeat.Core.ErrorsModels
 {
     public class Error
     {

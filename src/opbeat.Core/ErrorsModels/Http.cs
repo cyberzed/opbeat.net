@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace opbeat.Core
+namespace opbeat.Core.ErrorsModels
 {
     public class Http
     {

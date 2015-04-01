@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using opbeat.Core.ReleaseModels;
 
 namespace opbeat.Core
 {
