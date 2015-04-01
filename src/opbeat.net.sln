@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "opbeat.Core", "opbeat.Core\opbeat.Core.csproj", "{0D7A8A42-B784-464B-9009-7B9D846CA43B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "opbeat.Core.Tests", "opbeat.Core.Tests\opbeat.Core.Tests.csproj", "{F361A99A-5FFF-4310-9E96-1B25B2728810}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0D7A8A42-B784-464B-9009-7B9D846CA43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D7A8A42-B784-464B-9009-7B9D846CA43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D7A8A42-B784-464B-9009-7B9D846CA43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F361A99A-5FFF-4310-9E96-1B25B2728810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F361A99A-5FFF-4310-9E96-1B25B2728810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F361A99A-5FFF-4310-9E96-1B25B2728810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F361A99A-5FFF-4310-9E96-1B25B2728810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
