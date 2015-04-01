@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using opbeat.Core.ErrorsModels;
 using opbeat.Core.ReleaseModels;
 
 namespace opbeat.Core
@@ -38,9 +39,13 @@ namespace opbeat.Core
             defaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("opbeat.net", assemblyVersion));
         }
 
-        public bool Send(Release release)
+        public ReleaseResponse Send(Release release)
         {
-            return false;
+            return ReleaseResponse.Failure;
+        }
+
+        public void Send(Error error)
+        {
         }
     }
 }
