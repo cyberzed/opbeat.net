@@ -58,7 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleaseModels\Release.cs" />
     <Compile Include="ReleaseModels\ReleaseStatus.cs" />
-    <Compile Include="ReleaseResponse.cs" />
+    <Compile Include="ServiceResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

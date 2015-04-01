@@ -39,13 +39,14 @@ namespace opbeat.Core
             defaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("opbeat.net", assemblyVersion));
         }
 
-        public ReleaseResponse Send(Release release)
+        public ServiceResponse Send(Release release)
         {
-            return ReleaseResponse.Failure;
+            return ServiceResponse.Failure;
         }
 
-        public void Send(Error error)
+        public ServiceResponse Send(Error error)
         {
+            return ServiceResponse.Failure;
         }
     }
 }

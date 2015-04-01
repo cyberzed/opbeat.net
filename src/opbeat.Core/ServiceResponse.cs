@@ -1,6 +1,6 @@
 namespace opbeat.Core
 {
-    public enum ReleaseResponse
+    public enum ServiceResponse
     {
         Success,
         MissingToken,
