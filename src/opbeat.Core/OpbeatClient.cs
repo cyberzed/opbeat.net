@@ -1,7 +1,9 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using Jil;
 using opbeat.Core.ErrorsModels;
 using opbeat.Core.ReleaseModels;
 
@@ -14,21 +16,29 @@ namespace opbeat.Core
         //https://opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
         //https://opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/errors/
 
+        private readonly string releasesUrl;
+        private readonly string errorsUrl;
+
         public OpbeatClient(OpbeatConfiguration configuration)
         {
             client = new HttpClient();
 
             SetupClient(configuration);
-        }
 
-        private void SetupClient(OpbeatConfiguration configuration)
-        {
-            var baseUri = string.Format("https://opbeat.com/api/v1/organizations/{0}/apps/{1}/",
+            releasesUrl = string.Format("api/v1/organizations/{0}/apps/{1}/releases/",
                 configuration.OrganizationId,
                 configuration.ApplicationId
                 );
 
-            client.BaseAddress = new Uri(baseUri);
+            errorsUrl = string.Format("api/v1/organizations/{0}/apps/{1}/errors/",
+                configuration.OrganizationId,
+                configuration.ApplicationId
+                );
+        }
+
+        private void SetupClient(OpbeatConfiguration configuration)
+        {
+            client.BaseAddress = new Uri("https://opbeat.com");
 
             var defaultRequestHeaders = client.DefaultRequestHeaders;
 
@@ -41,6 +51,28 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Release release)
         {
+            var json = JSON.Serialize(release, new Options(excludeNulls: true));
+
+            var content = new StringContent(json)
+                          {
+                              Headers =
+                              {
+                                  ContentType = new MediaTypeHeaderValue("application/json")
+                              }
+                          };
+
+            var result = client.PostAsync(releasesUrl, content).Result;
+
+            if (result.StatusCode == HttpStatusCode.Accepted)
+            {
+                return ServiceResponse.Success;
+            }
+
+            if (result.StatusCode == HttpStatusCode.NotFound)
+            {
+                return ServiceResponse.MissingToken;
+            }
+
             return ServiceResponse.Failure;
         }
 
