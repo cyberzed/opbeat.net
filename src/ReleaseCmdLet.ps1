@@ -4,8 +4,8 @@ $organizationId = '42173c5126aa4fdf8acdf368c8555f7c'
 
 $sha1 = 'D5E5FDD40F607787FE57486226647A7C770C4A1D'
 
-#https://opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
-$uri = "https://opbeat.com/api/v1/organizations/$organizationId/apps/$applicationid/releases/"
+#https://intake.opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
+$uri = "https://intake.opbeat.com/api/v1/organizations/$organizationId/apps/$applicationid/releases/"
 
 $userAgent = 'opbeat.net/1.0'
 
