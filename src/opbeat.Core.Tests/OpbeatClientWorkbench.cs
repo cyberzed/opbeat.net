@@ -1,4 +1,7 @@
-﻿using opbeat.Core.ReleaseModels;
+﻿using System;
+using System.Collections.Generic;
+using opbeat.Core.ErrorsModels;
+using opbeat.Core.ReleaseModels;
 using Xunit;
 
 namespace opbeat.Core.Tests
@@ -15,13 +18,41 @@ namespace opbeat.Core.Tests
                 OrganizationId = "42173c5126aa4fdf8acdf368c8555f7c"
             };
 
-            var client = new OpbeatClient(new Serializer(), configuration);
+            var client = new OpbeatClient(configuration);
 
             var release = new Release(Sha1Generator.RandomString(), ReleaseStatus.Completed);
 
             var response = client.Send(release);
 
             Assert.Equal(ServiceResponse.Success, response);
+        }
+
+        [Fact]
+        public void SerializeRelease()
+        {
+            var release = new Release(Sha1Generator.RandomString(), ReleaseStatus.MachineCompleted)
+            {
+                Branch = "feature/type",
+                MachineName = Environment.MachineName
+            };
+
+            var output = Serializer.Serialize(release);
+        }
+
+        [Fact]
+        public void SerializeError()
+        {
+            var release = new Error("test")
+            {
+                Timestamp = DateTime.UtcNow,
+                Machine = new Dictionary<string, string>
+                {
+                    {"hostname", Environment.MachineName},
+                    {"UserDomainName", Environment.UserDomainName}
+                }
+            };
+
+            var output = Serializer.Serialize(release);
         }
     }
 }

@@ -17,11 +17,9 @@ namespace opbeat.Core
         //https://intake.opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/errors/
 
         private readonly string releasesUrl;
-        private readonly Serializer serializer;
 
-        public OpbeatClient(Serializer serializer, OpbeatConfiguration configuration)
+        public OpbeatClient(OpbeatConfiguration configuration)
         {
-            this.serializer = serializer;
             client = new HttpClient();
 
             SetupClient(configuration);
@@ -52,7 +50,7 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Release release)
         {
-            var json = serializer.Serialize(release);
+            var json = Serializer.Serialize(release);
 
             var result = PostToApi(json, releasesUrl).Result;
 
@@ -71,7 +69,7 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Error error)
         {
-            var json = serializer.Serialize(error);
+            var json = Serializer.Serialize(error);
 
             var result = PostToApi(json, errorsUrl).Result;
 
