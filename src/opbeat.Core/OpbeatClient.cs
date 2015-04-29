@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using Jil;
+using System.Threading.Tasks;
 using opbeat.Core.ErrorsModels;
 using opbeat.Core.ReleaseModels;
 
@@ -12,15 +12,16 @@ namespace opbeat.Core
     public class OpbeatClient
     {
         private readonly HttpClient client;
-
-        //https://opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
-        //https://opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/errors/
+        private readonly string errorsUrl;
+        //https://intake.opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
+        //https://intake.opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/errors/
 
         private readonly string releasesUrl;
-        private readonly string errorsUrl;
+        private readonly Serializer serializer;
 
-        public OpbeatClient(OpbeatConfiguration configuration)
+        public OpbeatClient(Serializer serializer, OpbeatConfiguration configuration)
         {
+            this.serializer = serializer;
             client = new HttpClient();
 
             SetupClient(configuration);
@@ -38,7 +39,7 @@ namespace opbeat.Core
 
         private void SetupClient(OpbeatConfiguration configuration)
         {
-            client.BaseAddress = new Uri("https://opbeat.com");
+            client.BaseAddress = new Uri("https://intake.opbeat.com");
 
             var defaultRequestHeaders = client.DefaultRequestHeaders;
 
@@ -51,17 +52,9 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Release release)
         {
-            var json = JSON.Serialize(release, new Options(excludeNulls: true));
+            var json = serializer.Serialize(release);
 
-            var content = new StringContent(json)
-                          {
-                              Headers =
-                              {
-                                  ContentType = new MediaTypeHeaderValue("application/json")
-                              }
-                          };
-
-            var result = client.PostAsync(releasesUrl, content).Result;
+            var result = PostToApi(json, releasesUrl).Result;
 
             if (result.StatusCode == HttpStatusCode.Accepted)
             {
@@ -78,7 +71,34 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Error error)
         {
+            var json = serializer.Serialize(error);
+
+            var result = PostToApi(json, errorsUrl).Result;
+
+            if (result.StatusCode == HttpStatusCode.Accepted)
+            {
+                return ServiceResponse.Success;
+            }
+
+            if (result.StatusCode == HttpStatusCode.NotFound)
+            {
+                return ServiceResponse.MissingToken;
+            }
+
             return ServiceResponse.Failure;
+        }
+
+        private Task<HttpResponseMessage> PostToApi(string json, string url)
+        {
+            var content = new StringContent(json)
+            {
+                Headers =
+                {
+                    ContentType = new MediaTypeHeaderValue("application/json")
+                }
+            };
+
+            return client.PostAsync(url, content);
         }
     }
 }
