@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using opbeat.Core.ErrorsModels;
 using opbeat.Core.ReleaseModels;
 
@@ -50,7 +51,7 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Release release)
         {
-            var json = Serializer.Serialize(release);
+            var json = JsonConvert.SerializeObject(release);
 
             var result = PostToApi(json, releasesUrl).Result;
 
@@ -69,7 +70,7 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Error error)
         {
-            var json = Serializer.Serialize(error);
+            var json = JsonConvert.SerializeObject(error);
 
             var result = PostToApi(json, errorsUrl).Result;
 
