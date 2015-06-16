@@ -22,7 +22,7 @@ namespace opbeat.Core.Tests
 
             var client = new OpbeatClient(configuration);
 
-            var release = new Release(Sha1Generator.RandomString(), ReleaseStatus.Completed);
+            var release = new Release(Sha1Generator.RandomString());
 
             var response = client.Send(release);
 
@@ -51,7 +51,7 @@ namespace opbeat.Core.Tests
                     Module = "opbeat.Core.Tests",
                     Type = "UnitTest"
                 },
-                Extra = new Dictionary<string, string> { { "foo", "bar" } },
+                Extra = new Dictionary<string, string> {{"foo", "bar"}},
                 Http = new Http(),
                 Level = ErrorLevel.Fatal,
                 Logger = "test",
@@ -63,7 +63,7 @@ namespace opbeat.Core.Tests
                 Param_Message = "Input {0}",
                 StackTrace = new StackTrace(),
                 Timestamp = DateTime.UtcNow,
-                User = new Dictionary<string, string> { { "horse", "man" } }
+                User = new Dictionary<string, string> {{"horse", "man"}}
             };
 
             var response = client.Send(error);
@@ -74,11 +74,9 @@ namespace opbeat.Core.Tests
         [Fact]
         public void SerializeRelease()
         {
-            var release = new Release(Sha1Generator.RandomString(), ReleaseStatus.MachineCompleted)
-            {
-                Branch = "feature/type",
-                MachineName = Environment.MachineName
-            };
+            var release = new Release(Sha1Generator.RandomString(), Environment.MachineName);
+
+            release.SetBranchName("feature/type");
 
             var output = JsonConvert.SerializeObject(release);
         }

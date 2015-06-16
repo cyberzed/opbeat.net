@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,6 +13,12 @@ namespace opbeat.Core
 {
     public class OpbeatClient
     {
+        private Dictionary<ReleaseStatus,string> releaseMap = new Dictionary<ReleaseStatus, string>
+        {
+            {ReleaseStatus.Completed, "complete"},
+            {ReleaseStatus.MachineCompleted, "machine-completed"}
+        };
+
         private readonly HttpClient client;
         private readonly string errorsUrl;
         //https://intake.opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
@@ -51,7 +58,15 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Release release)
         {
-            var json = JsonConvert.SerializeObject(release);
+            dynamic opbeatRealease = new
+            {
+                rev = release.CommitHash,
+                status = release.Status,
+                branch = release.Branch,
+                machine = release.MachineName
+            };
+
+            var json = JsonConvert.SerializeObject(opbeatRealease);
 
             var result = PostToApi(json, releasesUrl).Result;
 
