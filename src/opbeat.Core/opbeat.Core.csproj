@@ -60,6 +60,7 @@
     <Compile Include="ServiceResponse.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="opbeat.Core.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>cyberzed</authors>
+    <owners>cyberzed</owners>
+    <projectUrl>https://github.com/cyberzed/opbeat.net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/BSD-3-Clause</licenseUrl>
+    <description>
+      .NET implementation for opbeat
+    </description>
+    <releaseNotes>
+      First package
+    </releaseNotes>
+    <tags>Error,Logging,Opbeat</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" />
+    </dependencies>
+  </metadata>
+</package>
