@@ -72,16 +72,6 @@ namespace opbeat.Core.Tests
         }
 
         [Fact]
-        public void SerializeRelease()
-        {
-            var release = new Release(Sha1Generator.RandomString(), Environment.MachineName);
-
-            release.SetBranchName("feature/type");
-
-            var output = JsonConvert.SerializeObject(release);
-        }
-
-        [Fact]
         public void SerializeError()
         {
             var error = new Error("Input 42")
