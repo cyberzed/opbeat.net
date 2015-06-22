@@ -7,8 +7,8 @@ namespace opbeat.Core.ErrorsModels
     {
         public string Message { get; private set; }
         public string Param_Message { get; set; }
-        public DateTime? Timestamp { get; set; }
-        public ErrorLevel? Level { get; set; }
+        public DateTime? Timestamp { get; private set; }
+        public ErrorLevel? Level { get; private set; }
         public string Logger { get; set; }
         public string Culprit { get; set; }
         public Exception Exception { get; set; }
@@ -21,6 +21,31 @@ namespace opbeat.Core.ErrorsModels
         public Error(string message)
         {
             Message = message;
+        }
+
+        public void SetTimestamp(DateTime timestamp)
+        {
+            if (timestamp == DateTime.MinValue || timestamp == DateTime.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException("timestamp");
+            }
+
+            Timestamp = timestamp;
+        }
+
+        public void SetLevel(ErrorLevel level)
+        {
+            Level = level;
+        }
+
+        public void SetLoggerName(string logger)
+        {
+            if (string.IsNullOrWhiteSpace(logger))
+            {
+                throw new ArgumentNullException("logger");
+            }
+
+            Logger = logger;
         }
     }
 }
