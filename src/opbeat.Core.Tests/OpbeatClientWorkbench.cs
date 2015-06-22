@@ -41,30 +41,7 @@ namespace opbeat.Core.Tests
 
             var client = new OpbeatClient(configuration);
 
-            //var error = new Error("test");
-            var error = new Error("Input 42")
-            {
-                Culprit = "opbeat.Core.Tests.OpbeatClientWorkbench.SerilizeError",
-                Exception = new Exception
-                {
-                    Value = "test",
-                    Module = "opbeat.Core.Tests",
-                    Type = "UnitTest"
-                },
-                Extra = new Dictionary<string, string> {{"foo", "bar"}},
-                Http = new Http(),
-                Level = ErrorLevel.Fatal,
-                Logger = "test",
-                Machine = new Dictionary<string, string>
-                {
-                    {"hostname", Environment.MachineName},
-                    {"UserDomainName", Environment.UserDomainName}
-                },
-                Param_Message = "Input {0}",
-                StackTrace = new StackTrace(),
-                Timestamp = DateTime.UtcNow,
-                User = new Dictionary<string, string> {{"horse", "man"}}
-            };
+            var error = new Error("Input 42");
 
             var response = client.Send(error);
 
@@ -74,29 +51,30 @@ namespace opbeat.Core.Tests
         [Fact]
         public void SerializeError()
         {
-            var error = new Error("Input 42")
-            {
-                Culprit = "opbeat.Core.Tests.OpbeatClientWorkbench.SerilizeError",
-                Exception = new Exception
-                {
-                    Value = "test",
-                    Module = "opbeat.Core.Tests",
-                    Type = "UnitTest"
-                },
-                Extra = new Dictionary<string, string> {{"foo", "bar"}},
-                Http = new Http(),
-                Level = ErrorLevel.Fatal,
-                Logger = "test",
-                Machine = new Dictionary<string, string>
-                {
-                    {"hostname", Environment.MachineName},
-                    {"UserDomainName", Environment.UserDomainName}
-                },
-                Param_Message = "Input {0}",
-                StackTrace = new StackTrace(),
-                Timestamp = DateTime.UtcNow,
-                User = new Dictionary<string, string> {{"horse", "man"}}
-            };
+            var error = new Error("Input 42");
+
+            //{
+            //    Culprit = "opbeat.Core.Tests.OpbeatClientWorkbench.SerilizeError",
+            //    Exception = new Exception
+            //    {
+            //        Value = "test",
+            //        Module = "opbeat.Core.Tests",
+            //        Type = "UnitTest"
+            //    },
+            //    Extra = new Dictionary<string, string> {{"foo", "bar"}},
+            //    Http = new Http(),
+            //    Level = ErrorLevel.Fatal,
+            //    Logger = "test",
+            //    Machine = new Dictionary<string, string>
+            //    {
+            //        {"hostname", Environment.MachineName},
+            //        {"UserDomainName", Environment.UserDomainName}
+            //    },
+            //    Param_Message = "Input {0}",
+            //    StackTrace = new StackTrace(),
+            //    Timestamp = DateTime.UtcNow,
+            //    User = new Dictionary<string, string> {{"horse", "man"}}
+            //};
 
             var output = JsonConvert.SerializeObject(error);
         }
