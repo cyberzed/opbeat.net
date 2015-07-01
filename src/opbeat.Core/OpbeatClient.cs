@@ -11,6 +11,7 @@ using opbeat.Core.ReleaseModels;
 
 namespace opbeat.Core
 {
+
     public class OpbeatClient
     {
         private Dictionary<ReleaseStatus,string> releaseMap = new Dictionary<ReleaseStatus, string>
@@ -28,6 +29,7 @@ namespace opbeat.Core
 
         public OpbeatClient(OpbeatConfiguration configuration)
         {
+            
             client = new HttpClient();
 
             SetupClient(configuration);
