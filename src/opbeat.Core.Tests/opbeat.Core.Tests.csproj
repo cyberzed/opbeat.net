@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExplicitFactAttribute.cs" />
     <Compile Include="OpbeatClientWorkbench.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sha1Generator.cs" />

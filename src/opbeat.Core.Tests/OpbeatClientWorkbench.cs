@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using opbeat.Core.ErrorsModels;
 using opbeat.Core.ReleaseModels;
 using Xunit;
-using Exception = opbeat.Core.ErrorsModels.Exception;
 
 namespace opbeat.Core.Tests
 {
     public class OpbeatClientWorkbench
     {
-        [Fact]
+        [ExplicitFact]
         public void SendTestRelease()
         {
             var configuration = new OpbeatConfiguration
@@ -29,7 +26,7 @@ namespace opbeat.Core.Tests
             Assert.Equal(ServiceResponse.Success, response);
         }
 
-        [Fact]
+        [ExplicitFact]
         public void SendTestError()
         {
             var configuration = new OpbeatConfiguration
@@ -48,7 +45,7 @@ namespace opbeat.Core.Tests
             Assert.Equal(ServiceResponse.Success, response);
         }
 
-        [Fact]
+        [ExplicitFact]
         public void SerializeError()
         {
             var error = new Error("Input 42");
