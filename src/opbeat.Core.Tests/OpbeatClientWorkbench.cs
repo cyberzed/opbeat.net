@@ -67,7 +67,7 @@ namespace opbeat.Core.Tests
             //        {"hostname", Environment.MachineName},
             //        {"UserDomainName", Environment.UserDomainName}
             //    },
-            //    Param_Message = "Input {0}",
+            //    MessageFormat = "Input {0}",
             //    StackTrace = new StackTrace(),
             //    Timestamp = DateTime.UtcNow,
             //    User = new Dictionary<string, string> {{"horse", "man"}}

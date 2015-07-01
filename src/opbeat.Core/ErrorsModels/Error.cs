@@ -1,26 +1,47 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace opbeat.Core.ErrorsModels
 {
     public class Error
     {
+        private readonly IDictionary<string, string> extra;
+        private readonly IDictionary<string, string> machine;
         public string Message { get; private set; }
-        public string Param_Message { get; set; }
+        public string MessageFormat { get; set; }
         public DateTime? Timestamp { get; private set; }
         public ErrorLevel? Level { get; private set; }
-        public string Logger { get; set; }
-        public string Culprit { get; set; }
-        public Exception Exception { get; set; }
-        public StackTrace StackTrace { get; set; }
-        public Dictionary<string, string> Machine { get; set; }
-        public Dictionary<string, string> Extra { get; set; }
-        public Http Http { get; set; }
-        public Dictionary<string, string> User { get; set; }
+        public string Logger { get; private set; }
+        public string Culprit { get; private set; }
+        public Exception Exception { get; private set; }
+        public StackTrace StackTrace { get; private set; }
+
+        public IReadOnlyDictionary<string, string> Machine
+        {
+            get { return machine.Any() ? new ReadOnlyDictionary<string, string>(machine) : null; }
+        }
+
+        public IReadOnlyDictionary<string, string> Extra
+        {
+            get { return extra.Any() ? new ReadOnlyDictionary<string, string>(extra) : null; }
+        }
+
+        public Http Http { get; private set; }
+        public Dictionary<string, string> User { get; private set; }
 
         public Error(string message)
         {
             Message = message;
+
+            machine = new Dictionary<string, string>();
+            extra = new Dictionary<string, string>();
+        }
+
+        public void SetMessageFormat(string messageFormat)
+        {
+            MessageFormat = messageFormat;
         }
 
         public void SetTimestamp(DateTime timestamp)
@@ -40,12 +61,42 @@ namespace opbeat.Core.ErrorsModels
 
         public void SetLoggerName(string logger)
         {
-            if (string.IsNullOrWhiteSpace(logger))
+            Logger = logger;
+        }
+
+        public void SetCulprint(string culprint)
+        {
+            Culprit = culprint;
+        }
+
+        public void AddException(Exception exception)
+        {
+            Exception = exception;
+        }
+
+        public void AddStrackTrace(StackTrace stackTrace)
+        {
+            StackTrace = stackTrace;
+        }
+
+        public void AddMachineInformation(string key, string value)
+        {
+            if (machine.ContainsKey(key))
             {
-                throw new ArgumentNullException("logger");
+                machine.Remove(key);
             }
 
-            Logger = logger;
+            machine.Add(key, value);
+        }
+
+        public void AddExtraInformation(string key, string value)
+        {
+            if (extra.ContainsKey(key))
+            {
+                extra.Remove(key);
+            }
+
+            extra.Add(key, value);
         }
     }
 }
