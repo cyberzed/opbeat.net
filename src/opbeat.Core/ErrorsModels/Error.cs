@@ -9,8 +9,9 @@ namespace opbeat.Core.ErrorsModels
     {
         private readonly IDictionary<string, string> extra;
         private readonly IDictionary<string, string> machine;
+        private readonly IDictionary<string, string> user;
         public string Message { get; private set; }
-        public string MessageFormat { get; set; }
+        public string MessageFormat { get; private set; }
         public DateTime? Timestamp { get; private set; }
         public ErrorLevel? Level { get; private set; }
         public string Logger { get; private set; }
@@ -29,7 +30,11 @@ namespace opbeat.Core.ErrorsModels
         }
 
         public Http Http { get; private set; }
-        public Dictionary<string, string> User { get; private set; }
+
+        public IReadOnlyDictionary<string, string> User
+        {
+            get { return user.Any() ? new ReadOnlyDictionary<string, string>(user) : null; }
+        }
 
         public Error(string message)
         {
@@ -37,6 +42,7 @@ namespace opbeat.Core.ErrorsModels
 
             machine = new Dictionary<string, string>();
             extra = new Dictionary<string, string>();
+            user = new Dictionary<string, string>();
         }
 
         public void SetMessageFormat(string messageFormat)
@@ -97,6 +103,21 @@ namespace opbeat.Core.ErrorsModels
             }
 
             extra.Add(key, value);
+        }
+
+        public void AddHttp(Http http)
+        {
+            Http = http;
+        }
+
+        public void AddUserInformation(string key, string value)
+        {
+            if (user.ContainsKey(key))
+            {
+                user.Remove(key);
+            }
+
+            user.Add(key, value);
         }
     }
 }
