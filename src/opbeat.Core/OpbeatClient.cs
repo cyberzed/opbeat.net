@@ -11,15 +11,8 @@ using opbeat.Core.ReleaseModels;
 
 namespace opbeat.Core
 {
-
     public class OpbeatClient
     {
-        private Dictionary<ReleaseStatus,string> releaseMap = new Dictionary<ReleaseStatus, string>
-        {
-            {ReleaseStatus.Completed, "complete"},
-            {ReleaseStatus.MachineCompleted, "machine-completed"}
-        };
-
         private readonly HttpClient client;
         private readonly string errorsUrl;
         //https://intake.opbeat.com/api/v1/organizations/<organization-id>/apps/<app-id>/releases/
@@ -27,9 +20,14 @@ namespace opbeat.Core
 
         private readonly string releasesUrl;
 
+        private Dictionary<ReleaseStatus, string> releaseMap = new Dictionary<ReleaseStatus, string>
+                                                               {
+                                                                   {ReleaseStatus.Completed, "complete"},
+                                                                   {ReleaseStatus.MachineCompleted, "machine-completed"}
+                                                               };
+
         public OpbeatClient(OpbeatConfiguration configuration)
         {
-            
             client = new HttpClient();
 
             SetupClient(configuration);
@@ -60,15 +58,7 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Release release)
         {
-            dynamic opbeatRealease = new
-            {
-                rev = release.CommitHash,
-                status = release.Status,
-                branch = release.Branch,
-                machine = release.MachineName
-            };
-
-            var json = JsonConvert.SerializeObject(opbeatRealease);
+            var json = release.ToJson();
 
             var result = PostToApi(json, releasesUrl).Result;
 
@@ -107,12 +97,12 @@ namespace opbeat.Core
         private Task<HttpResponseMessage> PostToApi(string json, string url)
         {
             var content = new StringContent(json)
-            {
-                Headers =
-                {
-                    ContentType = new MediaTypeHeaderValue("application/json")
-                }
-            };
+                          {
+                              Headers =
+                              {
+                                  ContentType = new MediaTypeHeaderValue("application/json")
+                              }
+                          };
 
             return client.PostAsync(url, content);
         }
