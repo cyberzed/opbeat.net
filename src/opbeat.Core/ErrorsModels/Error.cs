@@ -20,21 +20,15 @@ namespace opbeat.Core.ErrorsModels
         public StackTrace StackTrace { get; private set; }
 
         public IReadOnlyDictionary<string, string> Machine
-        {
-            get { return machine.Any() ? new ReadOnlyDictionary<string, string>(machine) : null; }
-        }
+            => machine.Any() ? new ReadOnlyDictionary<string, string>(machine) : null;
 
         public IReadOnlyDictionary<string, string> Extra
-        {
-            get { return extra.Any() ? new ReadOnlyDictionary<string, string>(extra) : null; }
-        }
+            => extra.Any() ? new ReadOnlyDictionary<string, string>(extra) : null;
 
         public Http Http { get; private set; }
 
         public IReadOnlyDictionary<string, string> User
-        {
-            get { return user.Any() ? new ReadOnlyDictionary<string, string>(user) : null; }
-        }
+            => user.Any() ? new ReadOnlyDictionary<string, string>(user) : null;
 
         public Error(string message)
         {
@@ -54,7 +48,7 @@ namespace opbeat.Core.ErrorsModels
         {
             if (timestamp == DateTime.MinValue || timestamp == DateTime.MaxValue)
             {
-                throw new ArgumentOutOfRangeException("timestamp");
+                throw new ArgumentOutOfRangeException(nameof(timestamp));
             }
 
             Timestamp = timestamp;
