@@ -13,22 +13,13 @@ namespace opbeat.Core.ErrorsModels
         public string AbsolutePath { get; private set; }
         public string MethodName { get; private set; }
 
-        public IReadOnlyDictionary<string, string> Variables
-        {
-            get { return new ReadOnlyDictionary<string, string>(variables); }
-        }
+        public IReadOnlyDictionary<string, string> Variables => new ReadOnlyDictionary<string, string>(variables);
 
-        public IReadOnlyList<string> PreContext
-        {
-            get { return preContext.AsReadOnly(); }
-        }
+        public IReadOnlyList<string> PreContext => preContext.AsReadOnly();
 
         public string ContextLine { get; set; }
 
-        public IReadOnlyList<string> PostContext
-        {
-            get { return postContext.AsReadOnly(); }
-        }
+        public IReadOnlyList<string> PostContext => postContext.AsReadOnly();
 
         public Frame(string filename, string lineNumber)
         {

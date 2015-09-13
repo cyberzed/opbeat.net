@@ -10,7 +10,8 @@ namespace opbeat.Core.ErrorsModels
         private readonly IDictionary<string, string> extra;
         private readonly IDictionary<string, string> machine;
         private readonly IDictionary<string, string> user;
-        public string Message { get; private set; }
+
+        public string Message { get; }
         public string MessageFormat { get; private set; }
         public DateTime? Timestamp { get; private set; }
         public ErrorLevel? Level { get; private set; }
@@ -112,6 +113,27 @@ namespace opbeat.Core.ErrorsModels
             }
 
             user.Add(key, value);
+        }
+
+        public string ToJson()
+        {
+            using (var serializer = new Serializer())
+            {
+                serializer.Write("message", Message);
+                serializer.Write("timestamp", Timestamp);
+                serializer.Write("level", Level);
+                serializer.Write("logger", Logger);
+                serializer.Write("culprit", Culprit);
+                serializer.Write("machine", Machine);
+                serializer.Write("extra", Extra);
+                serializer.Write("param_message", MessageFormat);
+                //serializer.Write("exception", Exception);
+                //serializer.Write("stacktrace", StackTrace);
+                //serializer.Write("http", Http);
+                serializer.Write("user", User);
+
+                return serializer.ToJson();
+            }
         }
     }
 }

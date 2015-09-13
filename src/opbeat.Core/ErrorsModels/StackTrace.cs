@@ -7,10 +7,7 @@ namespace opbeat.Core.ErrorsModels
     {
         private readonly List<Frame> frames;
 
-        public IReadOnlyList<Frame> Frames
-        {
-            get { return !frames.Any() ? null : frames.AsReadOnly(); }
-        }
+        public IReadOnlyList<Frame> Frames => !frames.Any() ? null : frames.AsReadOnly();
 
         public StackTrace()
         {

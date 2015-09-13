@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Newtonsoft.Json;
+﻿using opbeat.Core.ErrorsModels;
 
 namespace opbeat.Core.ReleaseModels
 {
@@ -30,26 +29,17 @@ namespace opbeat.Core.ReleaseModels
 
         public string ToJson()
         {
-            using (var buffer = new StringWriter())
-            using (var writer = new JsonTextWriter(buffer))
+            using (var serializer = new Serializer())
             {
-                writer.WriteStartObject();
+                serializer.Write("rev", CommitHash);
 
-                writer.WritePropertyName("rev");
-                writer.WriteValue(CommitHash);
+                serializer.Write("status", Status);
 
-                writer.WritePropertyName("status");
-                writer.WriteValue(Status);
+                serializer.Write("branch", Branch);
 
-                writer.WritePropertyName("branch");
-                writer.WriteValue(Branch);
+                serializer.Write("machine", MachineName);
 
-                writer.WritePropertyName("machine");
-                writer.WriteValue(MachineName);
-
-                writer.WriteEndObject();
-
-                return buffer.ToString();
+                return serializer.ToJson();
             }
         }
     }

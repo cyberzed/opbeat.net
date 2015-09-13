@@ -18,34 +18,24 @@ namespace opbeat.Core.ErrorsModels
         public string Cookies { get; private set; }
 
         public IReadOnlyDictionary<string, string> Headers
-        {
-            get { return headers.Any() ? new ReadOnlyDictionary<string, string>(headers) : null; }
-        }
+            => headers.Any() ? new ReadOnlyDictionary<string, string>(headers) : null;
 
         public IPAddress RemoteHost { get; private set; }
 
-        public string HttpHost
-        {
-            get { return Url.Host; }
-        }
+        public string HttpHost => Url.Host;
 
         public string UserAgent { get; private set; }
 
-        public bool Secure
-        {
-            get { return Url.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase); }
-        }
+        public bool Secure => Url.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase);
 
         public IReadOnlyDictionary<string, string> Environment
-        {
-            get { return environment.Any() ? new ReadOnlyDictionary<string, string>(environment) : null; }
-        }
+            => environment.Any() ? new ReadOnlyDictionary<string, string>(environment) : null;
 
         public Http(Uri url, HttpMethod method)
         {
             if (!url.IsAbsoluteUri)
             {
-                throw new ArgumentException("Url must be absolute", "url");
+                throw new ArgumentException("Url must be absolute", nameof(url));
             }
 
             Url = url;

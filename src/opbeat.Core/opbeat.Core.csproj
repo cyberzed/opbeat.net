@@ -51,6 +51,7 @@
     <Compile Include="ErrorsModels\Exception.cs" />
     <Compile Include="ErrorsModels\Frame.cs" />
     <Compile Include="ErrorsModels\Http.cs" />
+    <Compile Include="ErrorsModels\Serializer.cs" />
     <Compile Include="ErrorsModels\StackTrace.cs" />
     <Compile Include="OpbeatClient.cs" />
     <Compile Include="OpbeatConfiguration.cs" />
