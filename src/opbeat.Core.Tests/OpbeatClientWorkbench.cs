@@ -11,11 +11,11 @@ namespace opbeat.Core.Tests
         public void SendTestRelease()
         {
             var configuration = new OpbeatConfiguration
-            {
-                AccessToken = "0d85cde89fadf8d18c057dd9572b6a2579aaa85e",
-                ApplicationId = "554e269e6f",
-                OrganizationId = "42173c5126aa4fdf8acdf368c8555f7c"
-            };
+                                {
+                                    AccessToken = "0d85cde89fadf8d18c057dd9572b6a2579aaa85e",
+                                    ApplicationId = "554e269e6f",
+                                    OrganizationId = "42173c5126aa4fdf8acdf368c8555f7c"
+                                };
 
             var client = new OpbeatClient(configuration);
 
@@ -30,11 +30,11 @@ namespace opbeat.Core.Tests
         public void SendTestError()
         {
             var configuration = new OpbeatConfiguration
-            {
-                AccessToken = "0d85cde89fadf8d18c057dd9572b6a2579aaa85e",
-                ApplicationId = "554e269e6f",
-                OrganizationId = "42173c5126aa4fdf8acdf368c8555f7c"
-            };
+                                {
+                                    AccessToken = "0d85cde89fadf8d18c057dd9572b6a2579aaa85e",
+                                    ApplicationId = "554e269e6f",
+                                    OrganizationId = "42173c5126aa4fdf8acdf368c8555f7c"
+                                };
 
             var client = new OpbeatClient(configuration);
 

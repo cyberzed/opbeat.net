@@ -11,7 +11,7 @@ namespace opbeat.Core.ErrorsModels
     {
         private readonly IDictionary<string, string> environment;
         private readonly IDictionary<string, string> headers;
-        public Uri Url { get; private set; }
+        public Uri Url { get; }
         public HttpMethod Method { get; private set; }
         public string RequestBody { get; private set; }
         public string QueryString { get; private set; }
