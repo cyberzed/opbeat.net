@@ -115,7 +115,7 @@ namespace opbeat.Core.ErrorsModels
             user.Add(key, value);
         }
 
-        public string ToJson()
+        internal string ToJson()
         {
             using (var serializer = new Serializer())
             {
@@ -127,8 +127,39 @@ namespace opbeat.Core.ErrorsModels
                 serializer.Write("machine", Machine);
                 serializer.Write("extra", Extra);
                 serializer.Write("param_message", MessageFormat);
-                //serializer.Write("exception", Exception);
+
+                if (Exception != null)
+                {
+                    using (var exceptionSerializer = new Serializer())
+                    {
+                        var exceptionJson = exceptionSerializer.ToJson();
+                    }
+
+                    //    writer.WritePropertyName(nameof(x.Baz));
+                    //    using (var subbuffer = new StringWriter())
+                    //    using (var subwriter = new JsonTextWriter(subbuffer))
+                    //    {
+                    //        subwriter.WriteStartObject();
+                    //        subwriter.WritePropertyName(nameof(x.Baz.Bar));
+                    //        subwriter.WriteValue(x.Baz.Bar);
+                    //        subwriter.WriteEndObject();
+
+                    //        var json = subbuffer.ToString();
+
+                    //        writer.WriteRawValue(json);
+                    //    }
+                }
+
+                //serializer.BeginWriteObject("exception");
+                //serializer.Write("type", Exception.Type);
+                //serializer.Write("value", Exception.Value);
+                //serializer.Write("module", Exception.Module);
+                //serializer.EndWriteObject();
+
+                //serializer.BeginWriteObject("stacktrace");
                 //serializer.Write("stacktrace", StackTrace);
+                //serializer.EndWriteObject();
+
                 //serializer.Write("http", Http);
                 serializer.Write("user", User);
 

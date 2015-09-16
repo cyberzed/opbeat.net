@@ -34,6 +34,12 @@ namespace opbeat.Core.ErrorsModels
             return buffer.ToString();
         }
 
+        public void WriteRaw(string name, string json)
+        {
+            writer.WritePropertyName(name);
+            writer.WriteRawValue(json);
+        }
+
         public void Write<TValue>(string name, TValue value)
         {
             if (value == null)

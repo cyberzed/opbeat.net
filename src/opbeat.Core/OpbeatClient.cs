@@ -77,7 +77,7 @@ namespace opbeat.Core
 
         public ServiceResponse Send(Error error)
         {
-            var json = JsonConvert.SerializeObject(error);
+            var json = error.ToJson();
 
             var result = PostToApi(json, errorsUrl).Result;
 

@@ -27,16 +27,13 @@ namespace opbeat.Core.ReleaseModels
             Branch = branch;
         }
 
-        public string ToJson()
+        internal string ToJson()
         {
             using (var serializer = new Serializer())
             {
                 serializer.Write("rev", CommitHash);
-
                 serializer.Write("status", Status);
-
                 serializer.Write("branch", Branch);
-
                 serializer.Write("machine", MachineName);
 
                 return serializer.ToJson();

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using opbeat.Core.ErrorsModels;
+﻿using opbeat.Core.ErrorsModels;
 using opbeat.Core.ReleaseModels;
 using Xunit;
 
@@ -43,37 +42,6 @@ namespace opbeat.Core.Tests
             var response = client.Send(error);
 
             Assert.Equal(ServiceResponse.Success, response);
-        }
-
-        [ExplicitFact]
-        public void SerializeError()
-        {
-            var error = new Error("Input 42");
-
-            //{
-            //    Culprit = "opbeat.Core.Tests.OpbeatClientWorkbench.SerilizeError",
-            //    Exception = new Exception
-            //    {
-            //        Value = "test",
-            //        Module = "opbeat.Core.Tests",
-            //        Type = "UnitTest"
-            //    },
-            //    Extra = new Dictionary<string, string> {{"foo", "bar"}},
-            //    Http = new Http(),
-            //    Level = ErrorLevel.Fatal,
-            //    Logger = "test",
-            //    Machine = new Dictionary<string, string>
-            //    {
-            //        {"hostname", Environment.MachineName},
-            //        {"UserDomainName", Environment.UserDomainName}
-            //    },
-            //    MessageFormat = "Input {0}",
-            //    StackTrace = new StackTrace(),
-            //    Timestamp = DateTime.UtcNow,
-            //    User = new Dictionary<string, string> {{"horse", "man"}}
-            //};
-
-            var output = JsonConvert.SerializeObject(error);
         }
     }
 }
